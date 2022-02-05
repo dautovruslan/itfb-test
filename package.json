@@ -6,6 +6,7 @@
   "dependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "styled-components": "^5.3.3",
     "webpack": "^5.68.0"
   },
   "devDependencies": {
@@ -38,5 +39,8 @@
   },
   "scripts": {
     "start": "webpack serve --config webpack.dev.config.ts"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }
