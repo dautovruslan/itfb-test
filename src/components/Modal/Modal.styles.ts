@@ -12,8 +12,8 @@ export const ModalOverlay = styled.div`
     align-items: center;
 `
 export const ModalContent = styled.div`
-    width: 480px;
+    width: 440px;
     background: white;
-    padding: 24px 32px;
+    padding: 42px 42px;
     border-radius: 12px;
 `
