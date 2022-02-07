@@ -11,7 +11,8 @@ interface UsersState {
     userList: Record<string, User>
     activeUser: User | null
     addUser: (user: User) => void
-    setActiveUser: (user: User) => void
+    setActiveUser: (user: User | null) => void
+    isAuthenticated: boolean
 }
 
 export const useStore = create<UsersState>(set => ({
@@ -28,6 +29,8 @@ export const useStore = create<UsersState>(set => ({
     setActiveUser: user => {
         set(() => ({
             activeUser: user,
+            isAuthenticated: !!user,
         }))
     },
+    isAuthenticated: false,
 }))

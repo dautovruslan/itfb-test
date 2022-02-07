@@ -19,8 +19,5 @@ export const ProductTable = () => (
             <ProductCard name="" description="" imageUrl="" productId="" />
             <ProductCard name="" description="" imageUrl="" productId="" />
         </ContentContainer>
-        <Modal isShown onClose={() => {}}>
-            <RegistrationForm />
-        </Modal>
     </>
 )

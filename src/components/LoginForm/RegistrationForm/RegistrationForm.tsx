@@ -2,14 +2,17 @@ import React, { useState } from 'react'
 import { Button, TextField } from '@mui/material'
 import { Wrapper, Title, InputWrapper } from './RegistrationForm.styles'
 import { Props } from './RegistrationForm.types'
+import { useStore } from '../../../usersStore'
 
-export const RegistrationForm: React.FC<Props> = ({ handleLogin }) => {
+export const RegistrationForm: React.FC<Props> = ({ handleLogin, closeModal }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
     const [isEmailValid, setEmailValid] = useState(true)
     const [isPasswordValid, setPasswordValid] = useState(true)
+
+    const { addUser, setActiveUser } = useStore()
 
     const validateEmail = (emailString: string): boolean => {
         const pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
@@ -29,7 +32,11 @@ export const RegistrationForm: React.FC<Props> = ({ handleLogin }) => {
         setPasswordValid(true)
         return true
     }
-    const handleRegister = () => {}
+    const handleRegister = () => {
+        addUser({ email, name, lastName, password })
+        setActiveUser({ password, name, lastName, email })
+        closeModal()
+    }
     const onRegisterAttempt = () => {
         const checkEmail = validateEmail(email)
         const checkPassword = validatePassword(password)
