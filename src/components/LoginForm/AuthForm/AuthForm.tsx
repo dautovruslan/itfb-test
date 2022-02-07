@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Button, Link, TextField } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import { Wrapper, Title, InputWrapper } from './AuthForm.styles'
+import { Props } from './AuthForm.types'
 
-export const AuthForm = () => {
+export const AuthForm: React.FC<Props> = ({ handleRegister }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
     const handleLogin = () => {}
     return (
         <Wrapper>
@@ -37,9 +39,9 @@ export const AuthForm = () => {
             >
                 Войти
             </Button>
-            <Link underline="none" href="#">
+            <Button onClick={handleRegister} size="large" style={{ width: '350px' }}>
                 Создать новый аккаунт
-            </Link>
+            </Button>
         </Wrapper>
     )
 }
