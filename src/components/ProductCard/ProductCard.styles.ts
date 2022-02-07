@@ -6,6 +6,7 @@ export const CardWrapper = styled.article`
     max-width: 860px;
     display: flex;
     margin: 0 auto;
+    cursor: pointer;
 `
 export const ImageContainer = styled.div`
     padding: 20px 0 20px 20px;
