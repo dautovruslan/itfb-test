@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { Button } from '@mui/material'
 import { createPortal } from 'react-dom'
 import { Container, NameContainer } from './LoginGroup.styles'
@@ -31,7 +30,7 @@ export function LoginGroup() {
             {isModalShown &&
                 createPortal(
                     <LoginForm isShown={isModalShown} onClose={() => setModalShown(false)} />,
-                    document.getElementById('root'),
+                    document.getElementById('root')!,
                 )}
         </>
     )
