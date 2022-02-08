@@ -1,10 +1,11 @@
 import create from 'zustand'
 
-type User = {
+export type User = {
     name: string
     lastName: string
     password: string
     email: string
+    id: string | number
 }
 
 interface UsersState {
@@ -12,7 +13,6 @@ interface UsersState {
     activeUser: User | null
     addUser: (user: User) => void
     setActiveUser: (user: User | null) => void
-    isAuthenticated: boolean
 }
 
 export const useStore = create<UsersState>(set => ({
@@ -29,8 +29,11 @@ export const useStore = create<UsersState>(set => ({
     setActiveUser: user => {
         set(() => ({
             activeUser: user,
-            isAuthenticated: !!user,
         }))
+        if (user) {
+            localStorage.setItem('user', user.email)
+        } else {
+            localStorage.removeItem('user')
+        }
     },
-    isAuthenticated: false,
 }))

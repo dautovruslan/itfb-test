@@ -7,13 +7,13 @@ import { LoginForm } from '../LoginForm/LoginForm'
 
 export function LoginGroup() {
     const [isModalShown, setModalShown] = useState(false)
-    const { isAuthenticated, activeUser, setActiveUser } = useStore()
+    const { activeUser, setActiveUser } = useStore()
     const handleLogout = () => setActiveUser(null)
 
     return (
         <>
             <Container>
-                {isAuthenticated && (
+                {activeUser && (
                     <>
                         <NameContainer>{`${activeUser?.name ?? ''} ${activeUser?.lastName ?? ''}`}</NameContainer>
                         <Button onClick={handleLogout} size="small" style={{ paddingTop: '6px' }}>
@@ -21,7 +21,7 @@ export function LoginGroup() {
                         </Button>
                     </>
                 )}
-                {!isAuthenticated && (
+                {!activeUser && (
                     <Button onClick={() => setModalShown(true)} size="small" style={{ paddingTop: '6px' }}>
                         Войти
                     </Button>
