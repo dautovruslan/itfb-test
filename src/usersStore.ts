@@ -11,20 +11,21 @@ export type User = {
 interface UsersState {
     userList: Record<string, User>
     activeUser: User | null
-    addUser: (user: User) => void
+    addUser: (user: User[]) => void
     setActiveUser: (user: User | null) => void
 }
 
 export const useStore = create<UsersState>(set => ({
     userList: {},
     activeUser: null,
-    addUser: user => {
-        set(state => ({
-            userList: {
-                ...state.userList,
-                [user.email]: user,
-            },
-        }))
+    addUser: users => {
+        set(state => {
+            const newState = { userList: { ...state.userList } }
+            users.forEach(user => {
+                newState.userList[user.email] = user
+            })
+            return newState
+        })
     },
     setActiveUser: user => {
         set(() => ({

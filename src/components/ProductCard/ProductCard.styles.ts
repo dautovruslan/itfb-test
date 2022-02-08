@@ -2,15 +2,15 @@ import styled from 'styled-components'
 
 export const CardWrapper = styled.article`
     padding: 16px;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    max-width: 860px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
     display: flex;
     margin: 0 auto;
     cursor: pointer;
+    width: 860px;
 `
 export const ImageContainer = styled.div`
     padding: 20px 0 20px 20px;
-    flex-basis: 200px;
+    width: 200px;
 `
 export const DescriptionContainer = styled.div`
     padding: 20px 0;
@@ -34,4 +34,5 @@ export const ProductNameContainer = styled.h2`
 export const Description = styled.p`
     font-size: 14px;
     font-weight: lighter;
+    white-space: pre;
 `

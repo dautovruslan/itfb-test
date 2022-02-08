@@ -2,8 +2,8 @@ import styled from 'styled-components'
 
 export const TableHeader = styled.h1`
     text-align: center;
-    margin-bottom: 28px;
-    padding-top: 28px;
+    margin-top: 128px;
+    margin-bottom: 48px;
     font-weight: 500;
 `
 export const ContentContainer = styled.div`

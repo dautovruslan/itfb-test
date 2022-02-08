@@ -1,9 +1,11 @@
 import React, { useEffect, useLayoutEffect } from 'react'
 import styled from 'styled-components'
 
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Header } from './components/Header/Header'
 import { ProductTable } from './components/ProductTable/ProductTable'
 import { User, useStore } from './usersStore'
+import { Product } from './components/Product/Product'
 
 const PageContainer = styled.div`
     max-width: 1280px;
@@ -12,11 +14,11 @@ const PageContainer = styled.div`
 
 function App() {
     const { addUser, setActiveUser, userList } = useStore()
-    useLayoutEffect(() => {
+    useEffect(() => {
         const fetchData = async () => {
             const res = await fetch('http://localhost:3000/users')
             const data = (await res.json()) as User[]
-            data.forEach(el => addUser(el))
+            addUser(data)
         }
         fetchData().catch(e => console.log(e))
     }, [])
@@ -28,12 +30,15 @@ function App() {
         }
     }, [userList])
     return (
-        <>
+        <BrowserRouter>
             <Header />
             <PageContainer>
-                <ProductTable />
+                <Routes>
+                    <Route path="/" element={<ProductTable />} />
+                    <Route path="/product/:id" element={<Product />} />
+                </Routes>
             </PageContainer>
-        </>
+        </BrowserRouter>
     )
 }
 
