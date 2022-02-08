@@ -9,18 +9,18 @@ export const RegistrationForm: React.FC<Props> = ({ handleLogin, closeModal }) =
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [isEmailValid, setEmailValid] = useState(true)
+    const [isEmailValid, setEmailValid] = useState<0 | 1 | 2>(0)
     const [isPasswordValid, setPasswordValid] = useState(true)
 
-    const { addUser, setActiveUser } = useStore()
+    const { addUser, setActiveUser, userList } = useStore()
 
     const validateEmail = (emailString: string): boolean => {
         const pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
         if (!emailString.trim().match(pattern)) {
-            setEmailValid(false)
+            setEmailValid(1)
             return false
         }
-        setEmailValid(true)
+        setEmailValid(0)
         return true
     }
 
@@ -33,9 +33,22 @@ export const RegistrationForm: React.FC<Props> = ({ handleLogin, closeModal }) =
         return true
     }
     const handleRegister = () => {
-        addUser({ email, name, lastName, password })
-        setActiveUser({ password, name, lastName, email })
-        closeModal()
+        if (!userList[email]) {
+            const id = Math.floor(Math.random() * 100000)
+            const user = { email, name, lastName, password, id }
+            addUser(user)
+            setActiveUser(user)
+            void fetch('http://localhost:3000/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            })
+            closeModal()
+            return
+        }
+        setEmailValid(2)
     }
     const onRegisterAttempt = () => {
         const checkEmail = validateEmail(email)
@@ -61,8 +74,14 @@ export const RegistrationForm: React.FC<Props> = ({ handleLogin, closeModal }) =
             </InputWrapper>
             <InputWrapper>
                 <TextField
-                    error={!isEmailValid}
-                    helperText={!isEmailValid && 'Некорректный формат email'}
+                    error={isEmailValid === 1 || isEmailValid === 2}
+                    helperText={
+                        isEmailValid === 1
+                            ? 'Некорректный формат email'
+                            : isEmailValid === 2
+                            ? 'Пользователь с таким email уже существует'
+                            : ''
+                    }
                     label="Email"
                     type="email"
                     fullWidth
