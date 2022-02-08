@@ -36,7 +36,7 @@ export const RegistrationForm: React.FC<Props> = ({ handleLogin, closeModal }) =
         if (!userList[email]) {
             const id = Math.floor(Math.random() * 100000)
             const user = { email, name, lastName, password, id }
-            addUser(user)
+            addUser([user])
             setActiveUser(user)
             void fetch('http://localhost:3000/users', {
                 method: 'POST',

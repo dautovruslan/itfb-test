@@ -1,6 +1,7 @@
 import React from 'react'
-import { Rating } from '@mui/material'
-import { Props } from './ProductCard.types'
+import { Rating, Tooltip } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { Product } from './ProductCard.types'
 import {
     CardWrapper,
     DescriptionContainer,
@@ -10,19 +11,20 @@ import {
     Description,
 } from './ProductCard.styles'
 
-export const ProductCard: React.FC<Props> = ({ productId, description, imageUrl, name, children }) => (
-    <CardWrapper>
-        <ImageContainer>
-            <img src="https://dummyproducts-api.herokuapp.com/gadgets/mobilephone_150.png" alt="img_picture" />
-        </ImageContainer>
-        <DescriptionContainer>
-            <ProductNameContainer>Отличненький телефончик</ProductNameContainer>
-            <Rating value={5} readOnly />
-            <Description>
-                Айфон от мира вьетнамских подделок. Камера 0.2 Мп, тачскрин, пластиковый корпус, 16-голосная полифония.
-                Хороший подарок для жены, с которой ты хочешь развестись!
-            </Description>
-        </DescriptionContainer>
-        <PriceContainer>18273 ₽</PriceContainer>
-    </CardWrapper>
+export const ProductCard: React.FC<Product> = ({ name, img, id, price, shortDescription, rating }) => (
+    <Link to={`/product/${id}`} style={{ textDecoration: 'none', color: 'unset' }}>
+        <CardWrapper>
+            <ImageContainer>
+                <img src={img} width={180} alt={name} />
+            </ImageContainer>
+            <DescriptionContainer>
+                <ProductNameContainer>{name}</ProductNameContainer>
+                <Tooltip title={`${rating}`} placement="right" open>
+                    <Rating value={rating} readOnly precision={0.1} />
+                </Tooltip>
+                <Description>{shortDescription}</Description>
+            </DescriptionContainer>
+            <PriceContainer>{price}</PriceContainer>
+        </CardWrapper>
+    </Link>
 )

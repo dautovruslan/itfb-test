@@ -15,7 +15,9 @@ export function LoginGroup() {
             <Container>
                 {activeUser && (
                     <>
-                        <NameContainer>{`${activeUser?.name ?? ''} ${activeUser?.lastName ?? ''}`}</NameContainer>
+                        <NameContainer>{`${activeUser?.name.toUpperCase() ?? ''} ${
+                            activeUser?.lastName.toUpperCase() ?? ''
+                        }`}</NameContainer>
                         <Button onClick={handleLogout} size="small" style={{ paddingTop: '6px' }}>
                             Выйти
                         </Button>
